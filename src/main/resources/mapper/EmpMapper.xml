@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hqyj.dao.EmpMapper" >
+
+  <sql id="Base_Column_List" >
+    emp_id, username, password, emp_name, sex, tel, email, addr, state
+  </sql>
+  <select id="findPassWordByName" resultType="java.lang.String">
+    select password from emp where username=#{0}
+  </select>
+
+  <select id="findAllEmp" resultType="com.hqyj.pojo.Emp">
+select emp_id as empId,username, password, emp_name as empName, sex, tel, email, addr, state from emp
+  </select>
+
+  <select id="findEmpByUsername" resultType="com.hqyj.pojo.Emp">
+    select emp_id as empId,username, password, emp_name as empName, sex, tel, email, addr, state from emp where username=#{0}
+  </select>
+
+  <select id="searchEmpByUserName" resultType="com.hqyj.pojo.Emp">
+    select emp_id as empId,username, password, emp_name as empName, sex, tel, email, addr, state from emp where username like concat('%',#{0},'%')
+  </select>
+
+  <insert id="insertEmp">
+    insert into emp
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="empName != null">
+        emp_name,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="tel != null">
+        tel,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="addr != null">
+        addr,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+    </trim>
+
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        #{username},
+      </if>
+      <if test="password != null">
+        #{password},
+      </if>
+      <if test="empName != null">
+        #{empName},
+      </if>
+      <if test="sex != null">
+        #{sex},
+      </if>
+      <if test="tel != null">
+        #{tel},
+      </if>
+      <if test="email != null">
+        #{email},
+      </if>
+      <if test="addr != null">
+        #{addr},
+      </if>
+      <if test="state != null">
+      #{state}
+      </if>
+    </trim>
+
+  </insert>
+</mapper>

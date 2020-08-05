@@ -235,7 +235,34 @@
             <version>2.10.4</version>
             <type>pom</type>
         </dependency>
-        <!-- shiro 整合 Spring  结束 -->
+
+        <!--        配置shiro依赖-->
+        <!-- shiro 整合 Spring  开始 -->
+        <dependency>
+            <artifactId>quartz</artifactId>
+            <groupId>org.opensymphony.quartz</groupId>
+            <version>1.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
+            <version>1.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-web</artifactId>
+            <version>1.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-quartz</artifactId>
+            <version>1.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-spring</artifactId>
+            <version>1.2.2</version>
+        </dependency>
 
     </dependencies>
 

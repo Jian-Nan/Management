@@ -1,10 +1,10 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="goods_management:war exploded">
-    <output-path>$PROJECT_DIR$/out/artifacts/goods_management_war_exploded</output-path>
+  <artifact type="exploded-war" name="aa:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/aa_war_exploded</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="goods_management" />
+          <element id="module-output" name="aa" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: junit:junit:4.13" />
@@ -41,16 +41,24 @@
           <element id="library" level="project" name="Maven: commons-io:commons-io:2.4" />
           <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.9" />
           <element id="library" level="project" name="Maven: org.opensymphony.quartz:quartz:1.6.1" />
-          <element id="library" level="project" name="Maven: org.apache.shiro:shiro-core:1.2.2" />
-          <element id="library" level="project" name="Maven: commons-beanutils:commons-beanutils:1.8.3" />
-          <element id="library" level="project" name="Maven: org.apache.shiro:shiro-web:1.2.2" />
+          <element id="library" level="project" name="Maven: org.apache.shiro:shiro-core:1.4.0" />
+          <element id="library" level="project" name="Maven: org.apache.shiro:shiro-lang:1.4.0" />
+          <element id="library" level="project" name="Maven: org.apache.shiro:shiro-cache:1.4.0" />
+          <element id="library" level="project" name="Maven: org.apache.shiro:shiro-crypto-hash:1.4.0" />
+          <element id="library" level="project" name="Maven: org.apache.shiro:shiro-crypto-core:1.4.0" />
+          <element id="library" level="project" name="Maven: org.apache.shiro:shiro-crypto-cipher:1.4.0" />
+          <element id="library" level="project" name="Maven: org.apache.shiro:shiro-config-core:1.4.0" />
+          <element id="library" level="project" name="Maven: org.apache.shiro:shiro-config-ogdl:1.4.0" />
+          <element id="library" level="project" name="Maven: commons-beanutils:commons-beanutils:1.9.3" />
+          <element id="library" level="project" name="Maven: commons-collections:commons-collections:3.2.2" />
+          <element id="library" level="project" name="Maven: org.apache.shiro:shiro-event:1.4.0" />
+          <element id="library" level="project" name="Maven: org.apache.shiro:shiro-web:1.4.0" />
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-quartz:1.2.2" />
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-spring:1.2.2" />
           <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.4" />
         </element>
       </element>
-      <element id="javaee-facet-resources" facet="goods_management/web/Web" />
-      <element id="dir-copy" path="$PROJECT_DIR$/src/main/webapp/static" />
+      <element id="javaee-facet-resources" facet="aa/web/Web" />
     </root>
   </artifact>
 </component>

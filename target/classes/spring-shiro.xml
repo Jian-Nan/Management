@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+
+
+    <!-- =========================================================
+         Shiro Core Components - Not Spring Specific
+         ========================================================= -->
+    <!-- Shiro's main business-tier object for web-enabled applications
+         (use DefaultSecurityManager instead when there is no web environment)-->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+<!--        <property name="cacheManager" ref="cacheManager"/>-->
+        <!-- Single realm app.  If you have multiple realms, use the 'realms' property instead. -->
+        <property name="sessionMode" value="native"/>
+        <property name="realm" ref="jdbcRealm"/>
+    </bean>
+
+
+<!--    配置CacheManger-->
+    <!-- Let's use some enterprise caching support for better performance.  You can replace this with any enterprise
+         caching framework implementation that you like (Terracotta+Ehcache, Coherence, GigaSpaces, etc -->
+<!--    <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">-->
+<!--        &lt;!&ndash; Set a net.sf.ehcache.CacheManager instance here if you already have one.  If not, a new one-->
+<!--             will be creaed with a default config:-->
+<!--             <property name="cacheManager" ref="ehCacheManager"/> &ndash;&gt;-->
+<!--        &lt;!&ndash; If you don't have a pre-built net.sf.ehcache.CacheManager instance to inject, but you want-->
+<!--             a specific Ehcache configuration to be used, specify that here.  If you don't, a default-->
+<!--             will be used.:&ndash;&gt;-->
+<!--        <property name="cacheManagerConfigFile" value="classpath:some/path/to/ehcache.xml"/>-->
+<!--    </bean>-->
+
+    <!-- Used by the SecurityManager to access security data (users, roles, etc).
+         Many other realm implementations can be used too (PropertiesRealm,
+         LdapRealm, etc. -->
+
+    <!--3.配置Realm-->
+    <bean id="jdbcRealm" class="com.hqyj.realm.MyRealm">
+
+    </bean>
+
+    <!-- =========================================================
+         Shiro Spring-specific integration
+         ========================================================= -->
+    <!-- Post processor that automatically invokes init() and destroy() methods
+         for Spring-configured Shiro objects so you don't have to
+         1) specify an init-method and destroy-method attributes for every bean
+            definition and
+         2) even know which Shiro objects require these methods to be
+            called. -->
+<!--    4.配置LifecycleBeanPostProcessor 。可以自动的来调用配置在spring ioc容器中 shirobean的生命周期-->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+    <!-- Enable Shiro Annotations for Spring-configured beans.  Only run after
+         the lifecycleBeanProcessor has run: -->
+
+<!--    5.启用IOC 容器中使用 shiro的注解，但必须在配置了lifecycleBeanPostProcessor后才可以使用-->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+          depends-on="lifecycleBeanPostProcessor"/>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+
+
+
+<!--    6.配置了shiroFilter
+        6.1 id 必须和web.xml文件中配置的过滤器的名字一致
+-->
+    <!-- Define the Shiro Filter here (as a FactoryBean) instead of directly in web.xml -
+         web.xml uses the DelegatingFilterProxy to access this bean.  This allows us
+         to wire things with more control as well utilize nice Spring things such as
+         PropertiesPlaceholderConfigurer and abstract beans or anything else we might need: -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <property name="loginUrl" value="/login.jsp"/>
+        <property name="successUrl" value="/login.do"/>
+        <property name="unauthorizedUrl" value="/unauthorized"/>
+
+<!--        配置哪些页面需要受保护，
+            以及访问这些页面需要的权限，
+            1. anon 可以被匿名访问
+            2.authc 必须认证（及登录后才可以访问的页面）
+             -->
+        <property name="filterChainDefinitions">
+            <value>
+
+                /static/** = anon
+                /*.do=anon
+                /** = authc
+            </value>
+        </property>
+    </bean>
+
+</beans>
