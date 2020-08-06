@@ -174,7 +174,7 @@
                 "<a title=\"编辑\"  onclick=updateEmp(this) href=\"javascript:;\">\n" +
                 "<i class=\"layui-icon\">&#xe642;</i>\n" +
                 "</a>\n" +
-                "<a title=\"删除\" onclick=\"member_del(this,'要删除的id')\" href=\"javascript:;\">\n" +
+                "<a title=\"删除\" onclick=\"member_del(this,"+data.emps[i].empId+")\" href=\"javascript:;\">\n" +
                 "<i class=\"layui-icon\">&#xe640;</i>\n" +
                 "</a>\n" +
                 "</td>"+
@@ -256,6 +256,17 @@
     function member_del(obj, id) {
         layer.confirm('确认要删除吗？', function (index) {
             //发异步删除数据
+            $.ajax({
+                type:"post",
+                url:"deleteEmpById.ajax",
+                data:{id:id},
+                success:function () {
+
+                },
+                error:function () {
+                    alert("删除失败")
+                }
+            })
             $(obj).parents("tr").remove();
             layer.msg('已删除!', {icon: 1, time: 1000});
         });

@@ -76,6 +76,50 @@ select emp_id as empId,username, password, emp_name as empName, sex, tel, email,
       #{state}
       </if>
     </trim>
-
   </insert>
+
+  <update id="editEmp">
+    update emp
+    <set>
+      <if test="username != null">
+        username = #{username},
+      </if>
+      <if test="empName != null">
+        emp_name = #{empName,},
+      </if>
+      <if test="sex != null">
+        sex = #{sex},
+      </if>
+      <if test="tel != null">
+        tel = #{tel},
+      </if>
+      <if test="email != null">
+        email = #{email},
+      </if>
+      <if test="addr != null">
+        addr = #{addr},
+      </if>
+    </set>
+    where emp_id = #{empId}
+  </update>
+
+  <delete id="deleteEmpById">
+    delete from emp where emp_id=#{0}
+  </delete>
+
+  <select id="findEmpIdByUsername" resultType="java.lang.Integer">
+    select emp_id from emp where username=#{0}
+  </select>
+
+  <insert id="addEmpRole">
+    insert into emp_role(emp_id,role_id) value (#{0},#{1})
+  </insert>
+
+  <select id="findRoleByEmpId" resultType="java.lang.Integer">
+    select role_id as rid from emp_role where emp_id=#{0}
+  </select>
+
+  <update id="editEmpRole">
+    update emp_role set role_id=#{1} where emp_id=#{0}
+  </update>
 </mapper>

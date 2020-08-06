@@ -16,4 +16,16 @@ public interface EmpMapper {
     List<Emp> searchEmpByUserName(String username);
 
     void insertEmp(Emp emp);
+
+    void editEmp(Emp emp);
+
+    void deleteEmpById(String id);
+
+    int findEmpIdByUsername(String username);
+
+    void addEmpRole(int eid, int rid);
+
+    int findRoleByEmpId(int empId);
+
+    void editEmpRole(Long empId, int rid);
 }

@@ -16,6 +16,18 @@ public interface EmpService {
 
     void insertEmp(Emp emp);
 
+    void editEmp(Emp emp);
+
+    void deleteEmpById(String id);
+
+    int findEmpIdByUsername(String username);
+
+    void addEmpRole(int eid, int rid);
+
+    int findRoleByEmpId(int empId);
+
+    void editEmpRole(Long empId, int rid);
+
 
 //    String findPassWordByName(String Name);
 }

@@ -101,9 +101,9 @@
             <div class="layui-form-item">
                 <label class="layui-form-label"><span class="x-red">*</span>角色</label>
                 <div id="roles" class="layui-input-block">
-                    <input type="checkbox" name="like1[write]" lay-skin="primary" title="超级管理员" checked="">
-                    <input type="checkbox" name="like1[read]" lay-skin="primary" title="编辑人员">
-                    <input type="checkbox" name="like1[write]" lay-skin="primary" title="宣传人员" checked="">
+<%--                    <input type="checkbox" name="like1[write]" lay-skin="primary" title="超级管理员" checked="">--%>
+<%--                    <input type="checkbox" name="like1[read]" lay-skin="primary" title="编辑人员">--%>
+<%--                    <input type="checkbox" name="like1[write]" lay-skin="primary" title="宣传人员" checked="">--%>
                 </div>
             </div>
 
@@ -111,13 +111,16 @@
                 <label  class="layui-form-label">
                 </label>
                 <button  class="layui-btn" lay-filter="add" lay-submit="">
-                    增加
+                    编辑
                 </button>
             </div>
         </form>
     </div>
 </div>
 <script>
+    layui.use(['form'], function () {
+        form = layui.form;
+    });
     $(function () {
         var data = eval('('+parent.empData+')');
         $("#empId").val(data.empId);
@@ -128,6 +131,29 @@
         $("#email").val(data.email);
         $("#addr").val(data.addr);
 
+        $.ajax({
+            type:"post",
+            url:"findAllRoleByempId.ajax",
+            data:{empId: data.empId},
+            success:function (data) {
+                var html="";
+                for (var i=0;i<data.roles.length;i++)
+                {
+                    if(i==data.rid-1)
+                    {
+                        html+="    <input type=\"radio\" name=\"choose\" lay-skin=\"primary\" title="+data.roles[i].roleName+" value="+data.roles[i].roleId+" checked>";
+                    }
+                    else {
+                        html+="    <input type=\"radio\" name=\"choose\" lay-skin=\"primary\" title="+data.roles[i].roleName+" value="+data.roles[i].roleId+" >";
+                    }
+                }
+                $("#roles").html(html);
+                form.render();
+            },
+            error:function () {
+                alert("失败");
+            }
+        })
     });
     layui.use(['form', 'layer'],
     function() {
@@ -158,17 +184,38 @@
         form.on('submit(add)',
             function(data) {
                 console.log(data);
-                //发异步，把数据提交给php
-                layer.alert("增加成功", {
-                        icon: 6
-                    },
-                    function() {
-                        //关闭当前frame
-                        xadmin.close();
-
-                        // 可以对父窗口进行刷新
-                        xadmin.father_reload();
-                    });
+                // alert(data.field);
+                $.ajax({
+                    url:"editEmp.ajax",
+                    type:"get",
+                    data:data.field,
+                    dataType:"text",
+                    success:function (data) {
+                        if (data == "true"){
+                            layer.alert("编辑成功", {
+                                    icon: 6
+                                },
+                                function() {
+                                    parent.load(parent.pageInfo);
+                                    // 获得frame索引
+                                    var index = parent.layer.getFrameIndex(window.name);
+                                    //关闭当前frame
+                                    parent.layer.close(index);
+                                });
+                        }else {
+                            layer.alert("编辑失败", {
+                                    icon: 5
+                                },
+                                function() {
+                                    parent.load(parent.pageInfo);
+                                    // 获得frame索引
+                                    var index = parent.layer.getFrameIndex(window.name);
+                                    //关闭当前frame
+                                    parent.layer.close(index);
+                                });
+                        }
+                    }
+                })
                 return false;
             });
 

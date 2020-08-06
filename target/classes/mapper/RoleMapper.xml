@@ -90,4 +90,9 @@ role
 INNER JOIN sys_role_permisson ON role.role_id = sys_role_permisson.role_id
 INNER JOIN permission ON sys_role_permisson.permissionId = permission.permissionId
   </select>
+
+
+  <select id="findAllRole" resultType="com.hqyj.pojo.Role">
+    select role_id as roleId,role_name as roleName,state from role
+  </select>
 </mapper>

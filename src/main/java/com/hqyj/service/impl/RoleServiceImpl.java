@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hqyj.dao.RoleMapper;
 import com.hqyj.pojo.Role;
-import com.hqyj.pojo.Store;
 import com.hqyj.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,5 +31,13 @@ public class RoleServiceImpl implements RoleService {
         pageMap.put("pageSize",rolePageInfo.getPageSize());
         pageMap.put("nowPage",rolePageInfo.getPageNum());
         return pageMap;
+    }
+
+
+    //查询所有用户
+    @Override
+    public List<Role> findAllRole() {
+
+        return roleMapper.findAllRole();
     }
 }

@@ -39,7 +39,19 @@
 
     <!--3.配置Realm-->
     <bean id="jdbcRealm" class="com.hqyj.realm.MyRealm">
-
+        <!--设置加密方式-->
+        <property name="credentialsMatcher">
+            <!-- The 'bootstrapDataPopulator' Sha256 hashes the password
+                 (using the username as the salt) then base64 encodes it: -->
+            <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+                <!--  <property name="hashAlgorithmName" value="SHA-256"/>-->
+                <!--加密方式-->
+                <property name="hashAlgorithmName" value="MD5"/>
+                <!-- true means hex encoded, false means base64 encoded -->
+                <!--加密多少次-->
+                <property name="hashIterations" value="1024"/>
+            </bean>
+        </property>
     </bean>
 
     <!-- =========================================================
@@ -89,6 +101,8 @@
 
                 /static/** = anon
                 /*.do=anon
+                /user.jsp = roles[user]
+                /admin.jsp = roles[admin]
                 /** = authc
             </value>
         </property>

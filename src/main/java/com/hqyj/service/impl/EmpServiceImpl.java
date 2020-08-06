@@ -97,8 +97,35 @@ public class EmpServiceImpl implements EmpService {
         empMapper.insertEmp(emp);
     }
 
-//    @Override
-//    public String findPassWordByName(String Name) {
-//        return empMapper.findPassWordByName(Name);
-//    }
+    @Override
+    public void editEmp(Emp emp) {
+        empMapper.editEmp(emp);
+    }
+
+    @Override
+    public void deleteEmpById(String id) {
+        empMapper.deleteEmpById(id);
+    }
+
+    @Override
+    public int findEmpIdByUsername(String username) {
+        return empMapper.findEmpIdByUsername(username);
+    }
+
+    @Override
+    public void addEmpRole(int eid, int rid) {
+        empMapper.addEmpRole(eid,rid);
+    }
+
+    @Override
+    public int findRoleByEmpId(int empId) {
+        return empMapper.findRoleByEmpId(empId);
+    }
+
+    @Override
+    public void editEmpRole(Long empId, int rid) {
+        empMapper.editEmpRole(empId,rid);
+    }
+
+
 }

@@ -7,4 +7,6 @@ import java.util.List;
 public interface RoleMapper {
 
     List<Role> selectByPage(Role role);
+
+    List<Role> findAllRole();
 }
